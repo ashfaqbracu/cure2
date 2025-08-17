@@ -1,0 +1,25 @@
+# Bio-Medical AI Competition - Simple Starter Kit
+
+# Core dependencies
+transformers>=4.21.0
+torch>=1.12.0
+tqdm>=4.64.0
+pandas>=1.3.0
+
+# Unsloth for fast inference and fine-tuning
+unsloth[colab-new] @ git+https://github.com/unslothai/unsloth.git
+# Alternative: unsloth[cu121-torch220] for specific CUDA/PyTorch versions
+# Alternative: unsloth[cu118-torch201] for specific CUDA/PyTorch versions
+
+# Optional dependencies for different model types
+openai>=1.0.0  # For ChatGPT models
+google-generativeai>=0.3.0  # For Gemini models (optional)
+
+# Utility packages
+numpy>=1.21.0
+scikit-learn>=1.0.0  # For additional metrics (optional)
+
+# Development dependencies (optional)
+jupyter>=1.0.0
+matplotlib>=3.5.0
+seaborn>=0.11.0
