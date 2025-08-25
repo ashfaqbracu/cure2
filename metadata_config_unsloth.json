@@ -1,0 +1,17 @@
+{
+  "metadata": {
+    "model_name": "unsloth/medgemma-4b-it-bnb-4bit",
+    "model_type": "UnslothModel",
+    "track": "internal_reasoning",
+    "base_model_type": "OpenWeighted",
+    "base_model_name": "medgemma-4b-it",
+    "dataset": "cure_bench_phase_1",
+    "additional_info": "Unsloth optimized medical model with 4-bit quantization"
+  },
+  "dataset": {
+    "dataset_name": "cure_bench_phase_1",
+    "dataset_path": "curebench_testset_phase1.jsonl",
+    "description": "CureBench 2025 Phase 1 test questions"
+  },
+  "output_dir": "unsloth_results"
+}
