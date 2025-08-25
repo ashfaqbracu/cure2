@@ -347,8 +347,9 @@ class CompetitionKit:
             Dictionary of dataset configurations
         """
         if not config:
-            print("Not config provided, existing.")
-            exit(1)
+            print("No config provided, returning empty dataset configuration.")
+            print("You can manually set datasets using: kit.datasets = {'dataset_name': config_dict}")
+            return {}
 
         # Check if config has a single dataset configuration
         if 'dataset' in config:
@@ -357,9 +358,10 @@ class CompetitionKit:
             # Create a dictionary with the dataset name as key
             return {dataset_name: dataset_config}
         else:
-            # If no dataset in config, return defaults
-            print("Not config found, existing.")
-            exit(1)
+            # If no dataset in config, return empty dict and let user configure manually
+            print("No dataset found in config, returning empty dataset configuration.")
+            print("You can manually set datasets using: kit.datasets = {'dataset_name': config_dict}")
+            return {}
 
     def _detect_model_type(self, model_name: str) -> str:
         """Auto-detect model type based on model name"""

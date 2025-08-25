@@ -108,7 +108,7 @@ python run.py --config metadata_config_test.json
 python run_unsloth.py --config metadata_config_unsloth.json
 ```
 
-#### Method 3: Using the Framework Directly
+#### Method 3: Using the Framework Directly (with config file)
 ```python
 from unsloth import FastModel
 from eval_framework import CompetitionKit
@@ -122,7 +122,7 @@ model, tokenizer = FastModel.from_pretrained(
     full_finetuning=False,
 )
 
-# Initialize framework
+# Initialize framework with config file
 kit = CompetitionKit(config_path="metadata_config_unsloth.json")
 kit.load_model(
     model_name="unsloth/medgemma-4b-it-bnb-4bit",
@@ -134,6 +134,54 @@ kit.load_model(
 # Run evaluation
 results = kit.evaluate("cure_bench_phase_1")
 submission_path = kit.save_submission_with_metadata(results=[results])
+```
+
+#### Method 4: Using the Framework Without Config File (Perfect for Colab)
+```python
+from unsloth import FastModel
+from eval_framework import CompetitionKit
+
+# Load Unsloth model
+model, tokenizer = FastModel.from_pretrained(
+    model_name="unsloth/medgemma-4b-it-bnb-4bit",
+    dtype=None,
+    max_seq_length=1024,
+    load_in_4bit=True,
+    full_finetuning=False,
+)
+
+# Initialize framework without config file
+kit = CompetitionKit()  # No config file needed!
+
+# Set up dataset manually
+dataset_config = {
+    "dataset_name": "cure_bench_phase_1",
+    "dataset_path": "curebench_testset_phase1.jsonl",
+    "description": "CureBench 2025 Phase 1 test questions"
+}
+kit.datasets = {"cure_bench_phase_1": dataset_config}
+
+# Load model
+kit.load_model(
+    model_name="unsloth/medgemma-4b-it-bnb-4bit",
+    model_type="unsloth",
+    model_instance=model,
+    tokenizer_instance=tokenizer
+)
+
+# Run evaluation with custom metadata
+metadata = {
+    "model_name": "unsloth/medgemma-4b-it-bnb-4bit",
+    "model_type": "UnslothModel",
+    "track": "internal_reasoning",
+    "base_model_type": "OpenWeighted",
+    "base_model_name": "medgemma-4b-it",
+    "dataset": "cure_bench_phase_1",
+    "additional_info": "Unsloth optimized medical model"
+}
+
+results = kit.evaluate("cure_bench_phase_1")
+submission_path = kit.save_submission_with_metadata(results=[results], metadata=metadata)
 ```
 
 ## 🔧 Configuration
